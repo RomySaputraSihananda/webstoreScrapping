@@ -1,10 +1,23 @@
-const cheerio = require("cheerio");
-const getHtml = require("./getHtml");
+const browser = require("./browser");
 
-const shopee = async () => {
-  const html = await getHtml("http://localhost/dashboard/");
-  const $ = cheerio.load(html);
-  console.log($("html").find("h1").text());
+const scrapeAll = async (browserInstance, url) => {
+  try {
+    const browser = await browserInstance;
+    await scraper(browser, url);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-module.exports = shopee;
+const scraper = async (browser, url) => {
+  const page = await browser.newPage();
+  console.log(`Navigating to ${url}...`);
+  await page.goto(url);
+};
+
+const shoppe = () => {
+  const browserInstance = browser();
+  scrapeAll(browserInstance, "https://google.com");
+};
+
+module.exports = shoppe;

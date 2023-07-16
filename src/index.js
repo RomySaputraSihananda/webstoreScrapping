@@ -1,1 +1,1 @@
-const shopee = require("./utils/shopee")();
+const shoppe = require("./utils/shopee")();
