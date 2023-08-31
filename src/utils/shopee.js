@@ -13,11 +13,24 @@ const scraper = async (browser, url) => {
   const page = await browser.newPage();
   console.log(`Navigating to ${url}...`);
   await page.goto(url);
+  await page.waitForSelector("div.shopee-search-item-result__items");
+  let urls = await page.$$eval(
+    "div.shopee-search-item-result__item",
+    (links) => {
+      // links = links.map;
+    }
+  );
+
+  // const searchValue = await page.$eval(
+  //   ".shopee-search-item-result__item > a",
+  //   (el) => el.href
+  // );
+  console.log(urls);
 };
 
-const shoppe = () => {
+const shopee = (url) => {
   const browserInstance = browser();
-  scrapeAll(browserInstance, "https://google.com");
+  scrapeAll(browserInstance, url);
 };
 
-module.exports = shoppe;
+module.exports = shopee;
